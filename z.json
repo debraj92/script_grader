@@ -1,0 +1,5 @@
+{
+    "q4": "SELECT p.age, AVG(p.imdb), AVG(runtime) FROM prime p WHERE p.runtime > 80 AND p.type = 0 GROUP BY p.age HAVING AVG(p.runtime) > 100;",
+    "q5": "SELECT c.country, AVG(n.imdb),AVG(n.tomatometer) FROM netflix n, hulu h, countries c WHERE n.id = h.id AND n.id = c.id AND n.imdb > 3 GROUP BY c.country HAVING (AVG(n.imdb)> 7 OR AVG(n.tomatometer) > 70)",
+    "q6": "SELECT country, COUNT(*) FROM hulu h, prime p,countries c WHERE h.id = p.id AND c.id = h.id AND h.tomatometer >= 40 AND h.tomatometer <= 80 GROUP BY c.country HAVING COUNT() > 3"
+}

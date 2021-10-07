@@ -1,0 +1,1 @@
+--Query 3 Ntabassuselect count(*) from (SELECT cid from deposit EXCEPT select cid from loan)

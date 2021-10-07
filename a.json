@@ -1,0 +1,17 @@
+{
+    "q1": {
+        "answer": "SELECT language, AVG(n.runtime) FROM netflix n,languages l WHERE n.id = l.id AND n.type = 0 AND (l.language = 'English' OR l.language = 'German') GROUP BY language",
+        "points": "4",
+        "ordered": 0
+    },
+    "q2": {
+        "answer": "SELECT n.year,count() FROM netflix n, hulu h WHERE n.id = h.id AND n.type = 0 GROUP BY n.year ORDER BY count() DESC;",
+        "points": "5",
+        "ordered": 0
+    },
+    "q3": {
+        "answer": "SELECT c.country, AVG(p.imdb), AVG(p.tomatometer) FROM prime p,hulu h,languages l, countries c WHERE p.id = h.id AND p.id = l.id AND p.id = c.id AND l.language = 'English' AND p.year >= 1995 GROUP BY c.country;",
+        "points": "6",
+        "ordered": 0
+    }
+}

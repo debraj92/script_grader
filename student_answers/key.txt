@@ -1,0 +1,6 @@
+1 - q1,2,3 right
+2 - q1,2 right, no q3
+3 - q1,q3 different columns, right answer
+4 - wrong q2, right rest
+5 - No q1, right q2,q3
+6 - wrong col name on 3, extra column on 2, wrong col name and order on 3

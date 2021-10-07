@@ -1,0 +1,4 @@
+{
+    "q1": "SELECT language, AVG(n.runtime) FROM netflix n,languages l WHERE n.id = l.id AND n.type = 0 AND (l.language = 'English' OR l.language = 'German') GROUP BY language",
+    "q2": ""
+}
