@@ -1,0 +1,87 @@
+{
+    "hayatsul": {
+        "queries": {
+            "1": "SELECT Customer.cid FROM Customer JOIN Deposit ON Customer.cid = Deposit.cid JOIN LOAN ON Customer.cid = Loan.cid  JOIN branch ON Branch.bid = Deposit.bid WHERE Deposit.bid = Loan.bid AND Branch.city = Customer.city;",
+            "2": "SELECT bid FROM branch WHERE assets >=  (SELECT AVG(assets) FROM branch WHERE city = \"Edmonton\");",
+            "3": "SELECT COUNT(cid) AS TotalCustomers FROM  (SELECT cid FROM customer NATURAL JOIN deposit EXCEPT SELECT cid FROM customer NATURAL JOIN loan);"
+        },
+        "dfs": {
+            "1": "{\"cid\":{}}",
+            "2": "{\"bid\":{\"0\":1,\"1\":8,\"2\":9,\"3\":10}}",
+            "3": "{\"TotalCustomers\":{\"0\":4}}"
+        },
+        "points": {
+            "1": "4/4",
+            "2": "5/5",
+            "3": "6/6"
+        }
+    },
+    "ntabassu": {
+        "queries": {
+            "1": "SELECT Customer.cid FROM Customer JOIN Deposit ON Customer.cid = Deposit.cid  JOIN LOAN ON Customer.cid = Loan.cid JOIN branch ON Branch.bid = Deposit.bid WHERE Deposit.bid = Loan.bid AND Branch.city = Customer.city;  ",
+            "2": "SELECT bid FROM Branch WHERE assets >=(SELECT avg (assets) FROM Branch WHERE city=\"Edmonton\")",
+            "3": "select count(*) from (SELECT cid from deposit EXCEPT select cid from loan)"
+        },
+        "dfs": {
+            "1": "{\"cid\":{}}",
+            "2": "{\"bid\":{\"0\":1,\"1\":8,\"2\":9,\"3\":10}}",
+            "3": "{\"count(*)\":{\"0\":4}}"
+        },
+        "points": {
+            "1": "4/4",
+            "2": "5/5",
+            "3": "6/6"
+        }
+    },
+    "kaiwen2": {
+        "queries": {
+            "1": "SELECT Customer.cid FROM Customer, Branch WHERE Customer.city = Branch.city AND (Customer.cid, Branch.bid) IN (         SELECT DISTINCT Loan.cid, Loan.bid         FROM Loan, Deposit         WHERE Loan.cid = Deposit.cid         AND Loan.bid = Deposit.bid);",
+            "2": "SELECT bid FROM Branch Where Branch.assets >= (     SELECT AVG(assets)     FROM Branch )",
+            "3": "SELECT COUNT(cid) FROM Customer Where cid IN (     SELECT cid          FROM Deposit         EXCEPT         SELECT cid     FROM Loan )"
+        },
+        "dfs": {
+            "1": "{\"cid\":{}}",
+            "2": "{\"bid\":{\"0\":1,\"1\":2,\"2\":3,\"3\":6,\"4\":8,\"5\":9,\"6\":10}}",
+            "3": "{\"COUNT(cid)\":{\"0\":4}}"
+        },
+        "points": {
+            "1": "4/4",
+            "2": "0/5",
+            "3": "6/6"
+        }
+    },
+    "ronggang": {
+        "queries": {
+            "1": "SELECT DISTINCT c.cid FROM Customer c, Deposit d, Loan l, Branch b WHERE c.cid = d.cid AND c.cid = l.cid AND d.bid = b.bid AND l.bid = b.bid AND b.city = 'Edmonton'",
+            "2": "SELECT DISTINCT b1.bid FROM Branch b1 WHERE b1.assets >  (SELECT AVG(b2.assets) FROM Branch b2 WHERE b2.city = 'Edmonton')",
+            "3": "SELECT COUNT(*) FROM Customer WHERE cid in  (SELECT cid FROM Deposit) AND cid not in  (SELECT cid FROM loan)"
+        },
+        "dfs": {
+            "1": "{\"cid\":{}}",
+            "2": "{\"bid\":{\"0\":1,\"1\":8,\"2\":9,\"3\":10}}",
+            "3": "{\"COUNT(*)\":{\"0\":4}}"
+        },
+        "points": {
+            "1": "4/4",
+            "2": "5/5",
+            "3": "6/6"
+        }
+    },
+    "zhengdao": {
+        "queries": {
+            "1": "SELECT DISTINCT c.cid FROM Branch b, Customer c, Deposit d, Loan l WHERE c.cid = d.cid \tand d.cid = l.cid \tand d.bid = l.bid \tand b.city = c.city \tand b.bid = d.bid \tand b.bid = l.bid",
+            "2": "SELECT bid FROM Branch Where assets >(SELECT AVG(assets) \t\tFROM Branch \t\tWHERE city='Edmonton')",
+            "3": "SELECT COUNT(DISTINCT cid) FROM Customer WHERE cid in (SELECT cid FROM Deposit EXCEPT SELECT cid FROM Loan)"
+        },
+        "dfs": {
+            "1": "{\"cid\":{}}",
+            "2": "{\"bid\":{\"0\":1,\"1\":8,\"2\":9,\"3\":10}}",
+            "3": "{\"COUNT(DISTINCT cid)\":{\"0\":4}}"
+        },
+        "points": {
+            "1": "4/4",
+            "2": "5/5",
+            "3": "6/6"
+        }
+    }
+}

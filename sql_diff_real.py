@@ -21,11 +21,21 @@ def main():
     print('hello')
     answer_dict = {}
     student_dict = {}
+    # TEST BLOCK, HARDCODED WHAT WOULD BE ENTERED
     load_student_answers(ANS_PATH,student_dict,answer_dict,DB_FILE)
+    create_key_answers('c.json',DB_FILE)
+    answer_dict = load_key_answers_json('c_answers.json')
     pprint.pprint(student_dict)
+    print("answer_dict")
+    pprint.pprint(answer_dict)
+    compare_student_answers(student_dict,answer_dict)
+    export_grades_to_csv(student_dict,answer_dict,"MA3_grades")
+    #
     while(True):
         # Make terminal like interface
         db_file = input('Enter the database file or path to the database file: ')
+        if db_file == '':
+            db_file = DB_FILE
         print('Enter 0 for help with the intended workflow')
         print('Enter 1 to input an answer key')
         print('Enter 2 to load an answer key from file')
@@ -79,14 +89,14 @@ def main():
 
     #create_key()
     #create_key_answers('a.json',DB_FILE)
-    ans_dict = load_key_answers_json('a_answers.json')
-    student_dict = {}
-    load_student_answers(r'C:\Users\Gerun\PycharmProjects\291Internship\script_grader\student_answers\A1',student_dict,ans_dict,DB_FILE)
-    pprint.pprint(student_dict)
-    compare_student_answers(student_dict,ans_dict)
-    pprint.pprint(student_dict)
-    pprint.pprint(ans_dict)
-    export_grades_to_csv(student_dict,ans_dict,'grades')
+    #ans_dict = load_key_answers_json('a_answers.json')
+    #student_dict = {}
+    #load_student_answers(r'C:\Users\Gerun\PycharmProjects\291Internship\script_grader\student_answers\A1',student_dict,ans_dict,DB_FILE)
+    #pprint.pprint(student_dict)
+    #compare_student_answers(student_dict,ans_dict)
+    #pprint.pprint(student_dict)
+    #pprint.pprint(ans_dict)
+    #export_grades_to_csv(student_dict,ans_dict,'grades')
     #parse_answers_txt(r'C:\Users\Gerun\PycharmProjects\291Internship\script_grader\student_answers\A1\0001_answers.txt',{})
     #view_key_answers('y_answers.json')
     #create_key()
@@ -133,7 +143,7 @@ def multiline_input(x):
             break
     return '\n'.join(lines)
 
-def create_key_answers(key_file,db_file):
+def create_key_answers(key_file,db_file=DB_FILE):
     '''
     Creates the answers for the key in the form of JSON serialized
     pandas dataframes, in a .json file
@@ -168,6 +178,7 @@ def load_key_answers_json(key_file):
     # Loads answers from JSOn to a dict, returns said dict
     with open(key_file) as json_file:
         return json.load(json_file)
+
 
 def create_student_answers(student_dict,db_file):
     '''
@@ -218,7 +229,7 @@ def compare_student_answers(student_dict,ans_dict):
 
     with open(f'student_dict-{str(dt.datetime.now()).split(" ")[0]}.json','w',encoding='utf-8') as f:
         json.dump(student_dict,f, ensure_ascii=False, indent=4)
-def load_student_answers(ans_path,stud_dict,ans_dict,db_file):
+def load_student_answers(ans_path,stud_dict,ans_dict,db_file=DB_FILE):
     '''
     Loads the student answers from the directory containing the student answer files
     :param ans_path: The path with the student answer files
@@ -247,7 +258,7 @@ def build_dict(ccid,stud_dict):
         stud_dict[ccid] = {}
         stud_dict[ccid]['queries'] = {}
 
-def update_student_answers_json(ccid,stud_query_paths,stud_dict,key_json,db_file):
+def update_student_answers_json(ccid,stud_query_paths,stud_dict,key_json,db_file=DB_FILE):
 
     parse_answers_txt(ccid,stud_query_paths,stud_dict)
     # At this point 0 stud_dict is updated with student answers in text

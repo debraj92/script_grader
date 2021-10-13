@@ -1,15 +1,15 @@
 {
-  "q1": {
+  "1": {
     "answer": "SELECT Customer.cid FROM Customer JOIN Deposit ON Customer.cid = Deposit.cid JOIN LOAN ON Customer.cid = Loan.cid JOIN branch ON Branch.bid = Deposit.bid\nWHERE Deposit.bid = Loan.bid AND Branch.city = Customer.city;",
     "points": "4",
     "ordered": 0
   },
-  "q2": {
+  "2": {
     "answer": "SELECT bid FROM branch WHERE assets >= (SELECT AVG(assets) FROM branch WHERE city = \"Edmonton\");",
     "points": "5",
     "ordered": 0
   },
-  "q3": {
+  "3": {
     "answer": "SELECT COUNT(cid) AS TotalCustomers FROM (SELECT cid FROM customer NATURAL JOIN deposit EXCEPT SELECT cid FROM customer NATURAL JOIN loan);",
     "points": "6",
     "ordered": 0
